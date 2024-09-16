@@ -1,10 +1,10 @@
 package com.inotech.management.eventapp.entities.demographics;
 
-import com.inotech.management.eventapp.entities.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 
 /**
@@ -24,15 +24,16 @@ public class City implements Serializable {
     @Column(name = "NAME", length = 100)
     private String name;
 
-    //bi-directional many-to-one association to District
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "DISTRICT_ID", nullable = false)
     private District district;
 
+    /*
     //bi-directional many-to-one association to User
     @OneToMany(mappedBy = "city")
     private List<User> users;
-
+*/
     public City() {
     }
 
@@ -59,7 +60,7 @@ public class City implements Serializable {
     public void setDistrict(District district) {
         this.district = district;
     }
-
+/*
     public List<User> getUsers() {
         return this.users;
     }
@@ -81,5 +82,5 @@ public class City implements Serializable {
 
         return user;
     }
-
+*/
 }
